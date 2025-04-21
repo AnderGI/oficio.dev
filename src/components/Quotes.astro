@@ -1,0 +1,37 @@
+---
+import { getCollection, render } from "astro:content";
+
+const quotes = await Promise.all(
+  (await getCollection("quotes")).map(async (quote) => {
+    const { Content } = await render(quote);
+    return { Content, id: quote.id };
+  })
+);
+---
+<section class="px-6 py-20 max-w-2xl mx-auto">
+  {quotes.map(quote => {
+    const {Content} = quote
+    return (
+        <blockquote class="font-light italic text-center leading-relaxed text-[#6F6F6F]">
+          <p>
+            <Content/>
+          </p>
+        </blockquote>
+      )
+  })}
+
+
+
+</section>
+
+<style>
+
+  blockquote {
+    margin: 600px 0px;
+  }
+
+  blockquote:first-child {
+    margin-top: 300px;
+  }
+
+</style>

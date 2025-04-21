@@ -2,29 +2,13 @@
 import '@fontsource-variable/sora';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import { getCollection } from 'astro:content';
+import Quotes from '../components/Quotes.astro';
 
-const quotes = await getCollection('quotes')
 ---
 
-<Layout>
+<Layout class="bg-[#ECE8E1]">
 	<Header/>
-	<section class="max-w-3xl mx-auto my-16 px-4 space-y-16">
-		{quotes.map((quote: { data: { position: string; }; body: unknown; }) => {
-			const isRight = quote.data.position === 'right';
-			const sideClass = isRight
-				? 'text-right border-r-4 pr-5 before:right-3 items-end'
-				: 'text-left border-l-4 pl-5 before:left-3 items-start';
-
-			return (
-				<blockquote
-					class={`relative text-base sm:text-lg leading-relaxed text-text font-thin italic border-accent before:content-['\\201C'] before:absolute before:top-0 before:text-5xl before:text-accent before:font-serif flex flex-col ${sideClass}`}
-				>
-					{quote.body}
-				</blockquote>
-			);
-		})}
-	</section>
+	<Quotes/>
 </Layout>
 
 <style>
